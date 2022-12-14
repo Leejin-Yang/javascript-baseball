@@ -1,21 +1,32 @@
 const { Console } = require('@woowacourse/mission-utils');
+
+const { RULE } = require('../constants/baseball');
 const BaseballGame = require('../models/BaseballGame');
 const Decision = require('../models/Decision');
 const { readNumbers, readRestartOrEnd } = require('../views/InputView');
 const { printGameStart, printBallStrikeCount, printCorrect } = require('../views/OutputView');
+const ComputerNumberMaker = require('../utils/ComputerNumberMaker');
+const RandomNumberGenerator = require('../utils/RandomNumberGenerator');
 
 class BaseballGameController {
   #game;
 
-  play() {
-    this.#game = new BaseballGame();
+  start() {
     printGameStart();
-    this.#runStart();
+    this.#runPlay();
   }
 
-  #runStart() {
-    this.#game.start();
+  #runPlay() {
+    this.#execute();
     readNumbers(this.#onNumberSubmit.bind(this));
+  }
+
+  #execute() {
+    const computerNumber = ComputerNumberMaker.makeComputerNumber(
+      RULE.LENGTH,
+      RandomNumberGenerator.generate,
+    );
+    this.#game = new BaseballGame(computerNumber);
   }
 
   #onNumberSubmit(numbers) {
@@ -39,7 +50,7 @@ class BaseballGameController {
     const decision = new Decision(input);
 
     if (decision.isRestart()) {
-      this.#runStart();
+      this.#runPlay();
       return;
     }
 

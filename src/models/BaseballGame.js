@@ -1,29 +1,21 @@
-const { RULE } = require('../constants/baseball');
-const ComputerNumberMaker = require('../utils/ComputerNumberMaker');
-const RandomNumberGenerator = require('../utils/RandomNumberGenerator');
-
 const Digits = require('./Digits');
 
 class BaseballGame {
   #digits;
 
-  #computer;
+  #computerNumber;
 
-  start() {
-    const computerNumber = ComputerNumberMaker.makeComputerNumber(
-      RULE.LENGTH,
-      RandomNumberGenerator.generate,
-    );
-    this.#computer = computerNumber;
+  constructor(computerNumber) {
+    this.#computerNumber = computerNumber;
   }
 
   play(numbers) {
     this.#digits = new Digits(numbers);
-    return this.#digits.matchCount(this.#computer);
+    return this.#digits.matchCount(this.#computerNumber);
   }
 
   isWin() {
-    return this.#digits.isStrikeAll(this.#computer);
+    return this.#digits.isStrikeAll(this.#computerNumber);
   }
 }
 

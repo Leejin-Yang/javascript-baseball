@@ -5,7 +5,7 @@ class App {
 
   play() {
     this.#controller = new BaseballGameController();
-    this.#controller.play();
+    this.#controller.start();
   }
 }
 

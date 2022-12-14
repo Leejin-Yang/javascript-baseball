@@ -1,4 +1,5 @@
 const { Console } = require('@woowacourse/mission-utils');
+const { GAME_MESSAGE } = require('../constants/baseball');
 const OutputUtils = require('../utils/OutputUtils');
 
 const OutputView = {

@@ -1,3 +1,5 @@
+const { GAME_MESSAGE } = require('../constants/baseball');
+
 const OutputUtils = {
   isNothing(ball, strike) {
     return ball === 0 && strike === 0;
